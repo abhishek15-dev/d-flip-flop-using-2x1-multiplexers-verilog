@@ -258,10 +258,11 @@ The D Flip-Flop was simulated using ModelSim 2020.1. Randomized data input value
 
 ### 13.1 ModelSim Simulation Waveform
 
-The following waveform shows the input signals D and CLK, along with the output signals Q and Q_B.
+The following waveform shows the input signals D and CLK,
+along with the output signals Q and Q_B.
 
 <p align="center">
-  <img src="./Waveform.png"
+  <img src="./waveform.png"
        alt="Positive Edge Triggered D Flip-Flop ModelSim Waveform"
        width="900">
 </p>
