@@ -1,4 +1,4 @@
-# Design and Verification of Positive-Edge-Triggered D Flip-Flop Using 2:1 Multiplexers in Verilog HDL
+# Positive-Edge-Triggered D Flip-Flop Using 2:1 Multiplexers in Verilog HDL
 
 <h1 align="center">
   Design and Verification of Positive-Edge-Triggered D Flip-Flop Using 2:1 Multiplexers in Verilog HDL
@@ -49,7 +49,6 @@ D-Flip-Flop-Using-2x1-Multiplexers/
 │
 ├── dff_mux.v
 ├── dff_mux_tb.v
-├── run.do
 ├── Waveform.png
 └── README.md
 ```
@@ -58,7 +57,6 @@ D-Flip-Flop-Using-2x1-Multiplexers/
 |:---|:---|
 | `dff_mux.v` | Verilog design containing the 2:1 MUX and D Flip-Flop modules |
 | `dff_mux_tb.v` | Testbench for functional verification |
-| `run.do` | ModelSim compilation and simulation script |
 | `Waveform.png` | ModelSim simulation waveform |
 | `README.md` | Project documentation |
 
@@ -187,8 +185,8 @@ mux2X1 dut2 ({Q,Y}, clk, Q);
 
 Its input connections are:
 
-- I0 = Y (master output)
-- I1 = Q (feedback)
+- I0 = Q (feedback)
+- I1 = Y (master output)
 - Select = CLK
 
 The slave latch output equation is:
@@ -363,9 +361,7 @@ The D Flip-Flop design was simulated using ModelSim 2020.1. Randomized data inpu
 The following waveform shows the input signals D and CLK, along with the output signals Q and Q_B.
 
 <p align="center">
-  <img src="./Waveform.png"
-       alt="Positive Edge Triggered D Flip-Flop Using 2:1 Multiplexers ModelSim Waveform"
-       width="900">
+  <img src="./Waveform.png" alt="Positive Edge Triggered D Flip-Flop ModelSim Waveform" width="900">
 </p>
 
 <p align="center">
