@@ -1,7 +1,6 @@
-# Positive-Edge-Triggered D Flip-Flop Using 2:1 Multiplexers in Verilog HDL
-
+ 
 <h1 align="center">
-  Design and Verification of Positive-Edge-Triggered D Flip-Flop Using 2:1 Multiplexers in Verilog HDL
+  Positive-Edge-Triggered D Flip-Flop Using 2:1 Multiplexers
 </h1>
 
 <p align="center">
@@ -12,40 +11,33 @@
 
 ## 1. Project Overview
 
-This project focuses on the design and functional verification of a **positive-edge-triggered D Flip-Flop using two 2:1 Multiplexers** in Verilog Hardware Description Language (HDL).
+This project demonstrates the design and functional verification of a **positive-edge-triggered D Flip-Flop using two 2:1 multiplexers** in Verilog HDL.
 
-A D Flip-Flop is a sequential logic circuit that stores one bit of binary information. It transfers the input data to the output at a specific active clock edge and retains the stored value between clock transitions.
+The circuit is implemented using a master-slave configuration. The first multiplexer acts as the master stage, while the second multiplexer acts as the slave stage.
 
-In this implementation, two 2:1 Multiplexers are connected in a master–slave configuration to realize a positive-edge-triggered D Flip-Flop.
-
-The first multiplexer acts as the master latch, while the second multiplexer acts as the slave latch. The design also generates the complementary output Q_B.
-
-The circuit is verified using a Verilog testbench that generates a clock signal and applies randomized data inputs. Functional simulation is performed using ModelSim 2020.1.
+The output changes according to the input data at the positive edge of the clock signal. The design also provides a complementary output, Q_B.
 
 ## 2. Objectives
 
-- To understand the working principle of a D Flip-Flop.
-- To design a 2:1 Multiplexer using Verilog HDL.
-- To implement a D Flip-Flop using two 2:1 Multiplexers.
-- To understand master–slave latch configuration.
-- To implement positive-edge-triggered operation.
-- To generate complementary outputs Q and Q_B.
-- To develop a testbench for functional verification.
-- To simulate and analyze the design using ModelSim.
+- To understand the operation of a D Flip-Flop.
+- To implement a positive-edge-triggered D Flip-Flop using two 2:1 multiplexers.
+- To understand the master-slave configuration.
+- To verify the functionality using Verilog HDL.
+- To simulate and analyze the output waveform using ModelSim 2020.1.
 
-## 3. Tools and Technologies Used
+## 3. Tools and Technologies
 
-| Tool / Technology | Description |
-|:---|:---|
-| Verilog HDL | Hardware Description Language |
-| ModelSim 2020.1 | Compilation and functional simulation |
-| GVim | Verilog source-code editor |
-| Windows / Linux | Development environment |
+| Tool | Purpose |
+|---|---|
+| Verilog HDL | RTL design |
+| GVim | Code editing |
+| ModelSim 2020.1 | Simulation and verification |
+| GitHub | Project documentation and version control |
 
 ## 4. Repository Structure
 
 ```text
-D-Flip-Flop-Using-2x1-Multiplexers/
+d-flip-flop-using-2x1-multiplexers-verilog/
 │
 ├── dff_mux.v
 ├── dff_mux_tb.v
@@ -53,188 +45,132 @@ D-Flip-Flop-Using-2x1-Multiplexers/
 └── README.md
 ```
 
-| File Name | Description |
-|:---|:---|
-| `dff_mux.v` | Verilog design containing the 2:1 MUX and D Flip-Flop modules |
-| `dff_mux_tb.v` | Testbench for functional verification |
-| `Waveform.png` | ModelSim simulation waveform |
-| `README.md` | Project documentation |
+## 5. What is a D Flip-Flop?
 
-## 5. Theoretical Background
+A D Flip-Flop is a sequential logic circuit that stores one bit of information.
 
-### 5.1 D Flip-Flop
-
-A D Flip-Flop is a sequential logic circuit that stores one bit of binary information.
-
-It has the following signals:
-
+It has:
 - D: Data input
 - CLK: Clock input
-- Q: Main output
+- Q: Normal output
 - Q_B: Complementary output
 
-The output Q follows the input D at the active clock edge and retains its previous value between active clock edges.
+In a positive-edge-triggered D Flip-Flop, the output captures the value of D at the rising edge of the clock.
 
-The complementary output is:
+The output remains unchanged between consecutive rising edges.
 
-\[
-Q_B=\overline{Q}
-\]
+## 6. What is a 2:1 Multiplexer?
 
-### 5.2 D Flip-Flop Truth Table
-
-For a positive-edge-triggered D Flip-Flop:
-
-| Clock Condition | D | Q(next) | Q_B(next) |
-|:---|:---:|:---:|:---:|
-| Rising edge (0 → 1) | 0 | 0 | 1 |
-| Rising edge (0 → 1) | 1 | 1 | 0 |
-| No active edge | X | Q(previous) | Q_B(previous) |
-
-Here, X represents either logic 0 or logic 1.
-
-### 5.3 Characteristic Equation
-
-The characteristic equation of a D Flip-Flop is:
-
-\[
-Q_{next}=D
-\]
-
-The complementary output is:
-
-\[
-Q_B=\overline{Q}
-\]
-
-The output changes according to the data input at the rising edge of the clock.
-
-## 6. 2:1 Multiplexer
-
-A 2:1 Multiplexer is a combinational circuit that selects one of two input signals based on a single select line.
+A 2:1 multiplexer is a combinational circuit that selects one of two input signals based on a select signal.
 
 It consists of:
-
 - Two data inputs: I0 and I1
 - One select input: S
 - One output: Y
 
-### 6.1 Selection Table
+### Truth Table
 
 | Select (S) | Output (Y) |
-|:---:|:---|
+|---|---|
 | 0 | I1 |
 | 1 | I0 |
 
-### 6.2 Boolean Expression
-
-The output of a 2:1 Multiplexer is:
+### Boolean Expression
 
 \[
-Y=\overline{S}I_1+SI_0
+Y = \overline{S}I_1 + SI_0
 \]
 
-### 6.3 Verilog Implementation
+## 7. Working Principle
 
-The 2:1 Multiplexer is implemented using the conditional operator:
+The D Flip-Flop is implemented using two 2:1 multiplexers connected in a master-slave configuration.
 
-```verilog
-assign Y=S?I[0]:I[1];
-```
+### Master Stage
 
-When S is logic HIGH, I0 is selected. When S is logic LOW, I1 is selected.
+The first multiplexer acts as the master stage.
 
-## 7. D Flip-Flop Implementation Using 2:1 Multiplexers
+- When CLK = 0, the master stage follows the input D.
+- When CLK = 1, the master stage holds its previous value.
 
-In this project, two 2:1 Multiplexers are connected in a master–slave configuration.
+### Slave Stage
 
-The first MUX acts as the master latch, and the second MUX acts as the slave latch.
+The second multiplexer acts as the slave stage.
 
-### 7.1 Master Latch
+- When CLK = 0, the slave stage holds its previous output.
+- When CLK = 1, the slave stage follows the master output.
 
-The first multiplexer implements the master latch:
+### Positive-Edge Triggering
 
-```verilog
-mux2X1 dut1 ({D,Y}, clk, Y);
-```
+At the rising edge of the clock:
 
-Its input connections are:
+1. The master stage stops following the input and stores the last input value.
+2. The slave stage becomes transparent.
+3. The stored master value is transferred to the output Q.
 
-- I0 = Y (feedback)
-- I1 = D (data input)
-- Select = CLK
+Therefore, the output captures the input D at the positive edge of CLK.
 
-The master latch output equation is:
+## 8. D Flip-Flop Truth Table
+
+| Clock Condition | D | Q(next) |
+|---|---|---|
+| Rising edge (↑) | 0 | 0 |
+| Rising edge (↑) | 1 | 1 |
+| No rising edge | X | Q(previous) |
+
+Here, X represents a don't-care input.
+
+### Characteristic Equation
 
 \[
-Y=CLK\cdot Y+\overline{CLK}\cdot D
+Q_{next}=D \quad \text{at the rising edge}
 \]
 
-Operation:
+## 9. Multiplexer Equations
 
-- When CLK = 0, the master latch is transparent and follows D.
-- When CLK = 1, the master latch retains its previous value.
-
-### 7.2 Slave Latch
-
-The second multiplexer implements the slave latch:
-
-```verilog
-mux2X1 dut2 ({Q,Y}, clk, Q);
-```
-
-Its input connections are:
-
-- I0 = Q (feedback)
-- I1 = Y (master output)
-- Select = CLK
-
-The slave latch output equation is:
+The master-stage equation is:
 
 \[
-Q=CLK\cdot Y+\overline{CLK}\cdot Q
+Y = \overline{CLK}D + CLK \cdot Y
 \]
 
-Operation:
+The slave-stage equation is:
 
-- When CLK = 0, the slave latch retains its previous output.
-- When CLK = 1, the slave latch follows the master output Y.
+\[
+Q = CLK \cdot Y + \overline{CLK}\cdot Q
+\]
 
-### 7.3 Positive-Edge-Triggered Operation
+The complementary output is:
 
-The master latch is transparent during the LOW clock level, while the slave latch is transparent during the HIGH clock level.
+\[
+Q_B = \overline{Q}
+\]
 
-The operation follows these steps:
+## 10. Verilog HDL Design Code
 
-1. When CLK = 0, the master latch follows the input D, while the slave latch holds its previous output.
-2. At the rising edge of the clock (0 → 1), the master latch holds the last input value.
-3. The slave latch becomes transparent and transfers the stored master value to Q.
-4. During the HIGH clock level, the master retains its value and the slave output remains stable.
-5. At the falling edge, the slave closes and the master becomes transparent again.
-
-Therefore, the master–slave configuration implements a **positive-edge-triggered D Flip-Flop**.
-
-## 8. Verilog HDL Design
-
-### 8.1 Source Code: `dff_mux.v`
+**File: `dff_mux.v`**
 
 ```verilog
 module DFF(D, clk, Q, Q_B);
 
 input wire D;
 input wire clk;
-output wire Q,Q_B;
+output wire Q, Q_B;
 
 wire Y;
 
-// for +ve edge trigger D-FF
+// Master stage
 mux2X1 dut1 ({D,Y}, clk, Y);
+
+// Slave stage
 mux2X1 dut2 ({Q,Y}, clk, Q);
 
+// Complementary output
 assign Q_B = ~Q;
 
 endmodule
 
+
+// 2:1 Multiplexer
 
 module mux2X1(I,S,Y);
 
@@ -242,60 +178,41 @@ input [1:0] I;
 input S;
 output Y;
 
-assign Y=S?I[0]:I[1];
+assign Y = S ? I[0] : I[1];
 
 endmodule
 ```
 
-### 8.2 Code Explanation
+## 11. Verilog Testbench
 
-| Code Component | Description |
-|:---|:---|
-| `module DFF` | Defines the D Flip-Flop module |
-| `input wire D` | Declares the data input |
-| `input wire clk` | Declares the clock input |
-| `output wire Q` | Declares the main output |
-| `output wire Q_B` | Declares the complementary output |
-| `wire Y` | Internal connection between master and slave MUXes |
-| `mux2X1 dut1` | First MUX implementing the master latch |
-| `mux2X1 dut2` | Second MUX implementing the slave latch |
-| `assign Q_B = ~Q` | Generates the complementary output |
-| `assign Y=S?I[0]:I[1]` | Implements the 2:1 Multiplexer |
-
-## 9. Testbench Implementation
-
-A testbench is developed to verify the functionality of the D Flip-Flop.
-
-The testbench generates a clock signal using a forever loop and applies randomized data values using the Verilog system function `$urandom`.
-
-The data input is updated after every 3 simulation time units, while the clock toggles after every 7 simulation time units.
-
-The simulation is terminated after 200 simulation time units.
-
-### 9.1 Testbench Code: `dff_mux_tb.v`
+**File: `dff_mux_tb.v`**
 
 ```verilog
 `include "dff_mux.v"
 
 module dff_tb;
 
-reg D,clk;
-wire Q,Q_B;
+reg D, clk;
+wire Q, Q_B;
 
-DFF dut(D,clk,Q,Q_B);
+// DUT instantiation
+DFF dut(D, clk, Q, Q_B);
 
+// Clock generation
 initial begin
-    clk=0;
-    forever #7 clk=~clk;
+    clk = 0;
+    forever #7 clk = ~clk;
 end
 
+// Randomized data input
 initial begin
     repeat(100) begin
-        D=$urandom;
+        D = $urandom;
         #3;
     end
 end
 
+// Simulation termination
 initial begin
     #200;
     $finish;
@@ -304,59 +221,42 @@ end
 endmodule
 ```
 
-### 9.2 Testbench Description
+**Note:** The testbench uses randomized input data. The clock toggles every 7 simulation time units, and the simulation terminates after 200 simulation time units. Since no `timescale` directive is specified, these values are simulator time units rather than a guaranteed nanosecond scale.
 
-| Testbench Statement | Function |
-|:---|:---|
-| `include "dff_mux.v"` | Includes the D Flip-Flop design file |
-| `dff_tb` | Declares the testbench module |
-| `reg D,clk` | Declares data and clock stimulus signals |
-| `wire Q,Q_B` | Declares output signals |
-| `DFF dut(...)` | Instantiates the D Flip-Flop |
-| `clk=0` | Initializes the clock signal |
-| `forever #7 clk=~clk` | Generates a continuous clock signal |
-| `repeat(100)` | Repeats the data-generation process 100 times |
-| `$urandom` | Generates randomized data values |
-| `#3` | Adds a delay of 3 simulation time units |
-| `#200` | Sets the simulation termination time |
-| `$finish` | Terminates the simulation |
+## 12. ModelSim Simulation
 
-## 10. ModelSim Simulation Setup
+The following commands can be used to compile and simulate the design.
 
-### 10.1 Simulation Commands
-
-The following commands can be used in the ModelSim Transcript window:
+### Step 1: Compile the Testbench
 
 ```tcl
-# compilation
-vlog dff_mux_tb.v -l comp.log
+vlog dff_mux_tb.v
+```
 
-# elaboration
+### Step 2: Start Simulation
+
+```tcl
 vsim -voptargs=+acc dff_tb
+```
 
-# addwave
+### Step 3: Add Signals to Waveform
+
+```tcl
+add wave sim:/dff_tb/*
 add wave sim:/dff_tb/dut/*
+```
 
-# run
+### Step 4: Run Simulation
+
+```tcl
 run -all
 ```
 
-### 10.2 Command Description
+## 13. Simulation Results
 
-| Command | Function |
-|:---|:---|
-| `vlog` | Compiles the Verilog testbench |
-| `-l comp.log` | Saves compilation messages in a log file |
-| `vsim` | Loads the testbench for simulation |
-| `-voptargs=+acc` | Enables access to internal design objects |
-| `add wave` | Adds D Flip-Flop signals to the waveform window |
-| `run -all` | Executes the simulation until completion |
+The D Flip-Flop was simulated using ModelSim 2020.1. Randomized data input values were applied to verify the behaviour of the master-slave multiplexer-based circuit.
 
-## 11. Simulation Results
-
-The D Flip-Flop design was simulated using ModelSim 2020.1. Randomized data input values were applied to verify the behaviour of the master–slave multiplexer-based circuit.
-
-### 11.1 ModelSim Simulation Waveform
+### 13.1 ModelSim Simulation Waveform
 
 The following waveform shows the input signals D and CLK, along with the output signals Q and Q_B.
 
@@ -369,71 +269,52 @@ The following waveform shows the input signals D and CLK, along with the output 
 <p align="center">
   <b>Figure 1: ModelSim Simulation Waveform of Positive-Edge-Triggered D Flip-Flop Using 2:1 Multiplexers.</b>
 </p>
-### 11.2 Simulation Signal Analysis
+
+### 13.2 Simulation Signal Analysis
 
 | Signal | Description |
-|:---|:---|
-| `D` | Data input of the D Flip-Flop |
-| `clk` | Clock signal |
-| `Q` | Main output |
-| `Q_B` | Complementary output of Q |
-| `Y` | Internal master-latch output |
+|---|---|
+| D | Data input of the D Flip-Flop |
+| clk | Clock signal |
+| Q | Main output |
+| Q_B | Complementary output of Q |
 
-### 11.3 Simulation Observations
+### 13.3 Expected Behaviour
 
-- The clock signal is generated continuously using a Verilog forever loop.
-- The data input changes at randomized intervals.
-- The first MUX operates as the master latch.
-- The second MUX operates as the slave latch.
-- The output Q updates at the rising edge of the clock.
-- The complementary output Q_B follows the inverse of Q.
-- The output retains its stored value between active clock edges.
+- When the clock is LOW, the master stage follows the input data, while the slave stage holds its previous output.
+- At the rising edge of the clock, the master stage stores the input value.
+- The slave stage transfers the stored value to the output.
+- The output Q remains unchanged until the next rising edge.
+- The complementary output Q_B always represents the inverse of Q.
 
-## 12. Key Observations
+## 14. Applications
 
-- A 2:1 Multiplexer is implemented using a conditional operator.
-- Two 2:1 Multiplexers are connected in a master–slave configuration.
-- The design realizes a positive-edge-triggered D Flip-Flop.
-- The master latch is transparent when the clock is LOW.
-- The slave latch is transparent when the clock is HIGH.
-- Randomized data inputs are generated using `$urandom`.
-- ModelSim is used to observe and analyze the input and output waveforms.
+- Data storage elements
+- Registers
+- Counters
+- Shift registers
+- Sequential logic circuits
+- Digital systems and processor architectures
 
-## 13. Applications
+## 15. Learning Outcomes
 
-The concepts demonstrated in this project are useful for understanding:
+Through this project, I gained practical understanding of:
 
-- Sequential logic design.
-- Master–slave latch architecture.
-- Flip-Flop implementation using multiplexers.
-- Data storage and clock synchronization.
-- Digital circuit timing.
-- Verilog HDL design and functional verification.
+- D Flip-Flop operation and positive-edge triggering.
+- Master-slave architecture using multiplexers.
+- 2:1 multiplexer implementation in Verilog HDL.
+- RTL design and testbench development.
+- Clock generation and randomized input stimulus.
+- Functional simulation and waveform analysis using ModelSim.
 
-## 14. Learning Outcomes
+## 16. Conclusion
 
-Through this project, I explored:
+A positive-edge-triggered D Flip-Flop was successfully designed using two 2:1 multiplexers in Verilog HDL.
 
-- Design of a 2:1 Multiplexer using Verilog HDL.
-- Implementation of a D Flip-Flop using two multiplexers.
-- Master–slave latch operation.
-- Positive-edge-triggered clock behaviour.
-- Complementary output generation.
-- Randomized testbench stimulus generation.
-- ModelSim compilation, simulation, and waveform analysis.
-
-## 15. Conclusion
-
-A positive-edge-triggered D Flip-Flop was designed and implemented using two 2:1 Multiplexers in Verilog HDL.
-
-The two multiplexers operate in a master–slave configuration, providing positive-edge-triggered functionality. The complementary output Q_B is generated using an inverter.
-
-A testbench was developed to generate clock signals and randomized data inputs. The design was simulated using ModelSim 2020.1 to analyze its sequential behaviour.
-
-This project provided practical understanding of sequential logic design, multiplexer-based Flip-Flop implementation, master–slave architecture, and functional verification using Verilog HDL.
+The master-slave configuration ensures that the output captures the input data only at the rising edge of the clock. The design was simulated using ModelSim 2020.1 with randomized input data to observe and understand its sequential behaviour.
 
 ---
 
-**Project Category:** Digital Design and Functional Verification
-
-**Tools Used:** Verilog HDL | ModelSim 2020.1 | GVim
+<p align="center">
+  <b>Designed and Simulated using Verilog HDL and ModelSim 2020.1</b>
+</p>
